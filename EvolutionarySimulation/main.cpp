@@ -30,14 +30,12 @@ int main()
 	, (Nucleobase::T)
 	}};
 	
-	//std::cout << genome.find_next_gene_end(6);
 	for (auto& gene : genome.genes())
 	{
 		for (auto base : gene) std::cout << base;
 		std::cout << '\n';
 	}
 	
-
 	system("pause");
 	return 0;
 }
