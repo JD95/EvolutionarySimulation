@@ -4,26 +4,31 @@
 #include <algorithm>
 #include <numeric>
 #include <array>
+#include <string>
+#include <functional>
+#include <iostream>
 
 namespace DNA
 {
 	using std::vector;
 	using std::array;
+	using std::string;
+	using std::function;
 
 	enum Nucleobase : unsigned char { A, T, C, G };
 
 	class Genome
 	{
-		std::vector<Nucleobase> nucleotides;	
+		string nucleotides;	
 
+	public:
 		/*
 			Uses boyer-moore-horspool search algorithm
 			to find a specific sequence in the genome
 			from the given starting point.
 		*/
 		int find_sequence( const int start
-						 , const vector<DNA::Nucleobase> &sequence
-						 , const vector<int> &shift
+						 , const string &sequence
 						 ) const;
 
 		// uses find_sequence to get next 'att' occurence
@@ -33,30 +38,22 @@ namespace DNA
 		int find_next_gene_end( const int start ) const;
 
 		// pulls out a gene at the specific starting and ending points
-		vector<Nucleobase> extract_gene( const int start
+		string extract_gene( const int start
 									   , const int end
 									   ) const;
 
 		// finds the next gene from the given starting point
-		vector<Nucleobase> find_next_gene(const int start) const;
+		string find_next_gene(const int start) const;
 
 	public:
 
-		// Predefined 'att' sequence
-		static const vector<Nucleobase> att;
-		static const vector<int> att_shift;
-
-		// Predefined 'gat' sequence
-		static const vector<Nucleobase> gat;
-		static const vector<int> gat_shift;
-
 		Genome();
-		Genome(std::vector<Nucleobase> ns);
+		Genome(string ns);
 
 		std::string to_string() const;
 
 		// Extracts the valid genes within the genome
-		vector<vector<Nucleobase>> genes() const;
+		vector<string> genes() const;
 	};
 }
 
