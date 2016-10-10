@@ -7,6 +7,7 @@
 #include <string>
 #include <functional>
 #include <iostream>
+#include <tuple>
 
 namespace DNA
 {
@@ -14,12 +15,14 @@ namespace DNA
 	using std::array;
 	using std::string;
 	using std::function;
+	using std::tuple;
 
 	enum Nucleobase : unsigned char { A, T, C, G };
 
 	class Genome
 	{
-		string nucleotides;	
+		const int MARK_SIZE = 3;
+		string nucleotides;
 
 	public:
 		/*
@@ -39,11 +42,11 @@ namespace DNA
 
 		// pulls out a gene at the specific starting and ending points
 		string extract_gene( const int start
-									   , const int end
-									   ) const;
+						   , const int end
+						   ) const;
 
 		// finds the next gene from the given starting point
-		string find_next_gene(const int start) const;
+		std::tuple<std::string, int> find_next_gene(const int start) const;
 
 	public:
 
