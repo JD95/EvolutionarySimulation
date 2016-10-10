@@ -12,9 +12,6 @@ using namespace DNA;
 int main()
 {
 	const Genome genome("ATTGATCAGCTAGAGCTATTAGCGAGGTATTAGAT");
-	
-	string s = "boo";
-	auto test = s.find("z");
 
 	for (auto gene : genome.genes())
 	{
