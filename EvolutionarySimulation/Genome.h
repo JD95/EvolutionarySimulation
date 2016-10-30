@@ -15,8 +15,6 @@ namespace DNA
 	using std::string;
 	using std::function;
 
-	enum Nucleobase : unsigned char { A, T, C, G };
-
 	class Genome
 	{
 		string nucleotides;	
