@@ -145,10 +145,12 @@
     <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="Genome.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Organism.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attribute.h" />
     <ClInclude Include="Genome.h" />
+    <ClInclude Include="Organism.h" />
     <ClInclude Include="Search.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

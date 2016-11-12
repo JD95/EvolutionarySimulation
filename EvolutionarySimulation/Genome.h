@@ -25,8 +25,8 @@ namespace DNA
 	public:
 
 		int find_sequence( const int start
-				 , const string &sequence
-				 ) const;
+						 , const string &sequence
+						 ) const;
 
 		// uses find_sequence to get next 'att' occurence
 		int find_next_gene_start( const int start ) const;
@@ -36,8 +36,8 @@ namespace DNA
 
 		// pulls out a gene at the specific starting and ending points
 		string extract_gene( const int start
-				   , const int end
-				   ) const;
+						   , const int end
+						   ) const;
 
 		// finds the next gene from the given starting point
 		std::tuple<std::string, int> find_next_gene(const int start) const;

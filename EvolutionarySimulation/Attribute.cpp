@@ -36,5 +36,6 @@ std::string show_AttributeType(AttributeType t)
 	case AttributeType::ReproductiveStrat: return "Reproductive Strat";
 	case AttributeType::ResourcePref: return "Resource Preference";
 	case AttributeType::ResourcesNeeded: return "Resources Needed";
+	default: return "Undefined Attribute Type!";
 	}
 }

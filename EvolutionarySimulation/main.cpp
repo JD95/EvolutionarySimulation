@@ -8,17 +8,17 @@
 #include "Genome.h"
 #include "Search.h"
 #include "Attribute.h"
+#include "Organism.h"
 
 using namespace DNA;
 
 int main()
 {
-	const Genome genome("ATTGATCAGCTAGAGCTATTAGCGAGGTATTAGAT");
+	const Organism subject1("ATTGATCAGCTAGAGCTATTAGCGAGGTATTAGAT");
+	const Organism subject2("ATTGATCAGCTAGAGCTATTAGCGAGGTATTAGAT");
 
-	for (auto gene : genome.genes())
-	{
-		std::cout << Attribute(gene) << '\n';
-	}
+	std::cout << (subject1 == subject2 ? "Subject1 is the same species as Subject2!\n" : "Not Same species!\n");
+
 	
 	system("pause");
 	return 0;

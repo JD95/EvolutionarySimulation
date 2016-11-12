@@ -1,4 +1,4 @@
-#include "Genome.h"
+﻿#include "Genome.h"
 
 using std::vector;
 using std::array;
@@ -51,7 +51,7 @@ std::tuple<std::string, int> DNA::Genome::find_next_gene(const int start) const
 
 vector<std::string> DNA::Genome::genes() const
 {
-	int start = 0;
+	size_t start = 0;
 	vector<string> gs;
 
 	do
