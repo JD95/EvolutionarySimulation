@@ -1,4 +1,4 @@
-﻿#include "Genome.h"
+#include "Genome.h"
 
 using std::vector;
 using std::array;
@@ -31,23 +31,22 @@ int DNA::Genome::find_next_gene_end(const int start) const
 
 std::string DNA::Genome::extract_gene(const int start, const int end) const
 {
-	string gene = nucleotides.substr(start, end - start);
-	return gene;
+	return nucleotides.substr(start, end - start);;
 }
 
-std::string DNA::Genome::find_next_gene(const int start) const
+std::tuple<std::string, int> DNA::Genome::find_next_gene(const int start) const
 {
-	int next_gene_start = find_next_gene_start(start) + 3;
+	int next_gene_start = find_next_gene_start(start);
 
 	if (next_gene_start == std::string::npos) 
-		return "";
+		return std::make_tuple("", std::string::npos);
 
-	int next_gene_end = find_next_gene_end(next_gene_start);
+	int next_gene_end = find_next_gene_end(next_gene_start + MARK_SIZE);
 
 	if (next_gene_end == std::string::npos)
-		return "";
+		return std::make_tuple("", std::string::npos);
 	
-	return extract_gene(next_gene_start, next_gene_end);
+	return std::make_tuple(extract_gene(next_gene_start + MARK_SIZE, next_gene_end), next_gene_end);
 }
 
 vector<std::string> DNA::Genome::genes() const
@@ -57,17 +56,10 @@ vector<std::string> DNA::Genome::genes() const
 
 	do
 	{
-		int next_gene_start = find_next_gene_start(start);
-
-		if (next_gene_start == std::string::npos)
-			return gs;
-
-		int next_gene_end = find_next_gene_end(next_gene_start + 3);
-
-		if (next_gene_end == std::string::npos)
-			return gs;
-
-		auto gene = extract_gene(next_gene_start + 3, next_gene_end);
+		auto gene_info = find_next_gene(start);
+		auto gene = std::get<0>(gene_info);
+		int next_gene_end = std::get<1>(gene_info);
+		
 		gs.push_back(gene);
 
 		start = next_gene_end + 3;
