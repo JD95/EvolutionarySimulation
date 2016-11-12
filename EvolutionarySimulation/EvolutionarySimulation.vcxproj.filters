@@ -32,9 +32,6 @@
     <ClInclude Include="Genome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Search.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Attribute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
