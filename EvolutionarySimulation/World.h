@@ -6,16 +6,24 @@
 
 #include "Population.h"
 
-class World
-{
-	std::vector<Population> populations;
-	static constexpr float POPULATION_IMPORTANCE = 0.12;
+namespace Environment {
+	class World
+	{
+		std::vector<Population> populations;
+		static constexpr float POPULATION_IMPORTANCE = 0.12;
 
-public:
+	public:
 
-	World();
-	~World();
+		World();
+		~World();
 
-	inline float total_diversity();
-};
+		// Measures the total diversity of all
+		// populations by averaging each population's
+		// individual diversity and then adding that
+		// to the total number of populations times the
+		// population importance constant.
+		inline float total_diversity();
+	};
+}
+
 

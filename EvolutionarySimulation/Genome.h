@@ -24,6 +24,8 @@ namespace DNA
 
 	public:
 
+		const int REPRODUCTION_CHUNK_SIZE = 4;
+
 		int find_sequence( const int start
 						 , const string &sequence
 						 ) const;

@@ -2,16 +2,16 @@
 
 
 
-Population::Population()
+Environment::Population::Population()
 {
 }
 
 
-Population::~Population()
+Environment::Population::~Population()
 {
 }
 
-float Population::diversity()
+float Environment::Population::diversity()
 {
 	float total = 0;
 
@@ -28,4 +28,17 @@ float Population::diversity()
 	}
 
 	return total / organisms.size();
+}
+
+std::vector<DNA::Organism> Environment::Population::reproduce()
+{
+	// 1. begin with the first organism
+	// 2. scan population for suitable mate
+	// 3. if mate is found
+	//     swap mate with organism after current
+	//     create new offspring from parents
+	//     set marker to current + 2
+	//    else add organism to new population list
+	// 4. do while current != end
+	return std::vector<DNA::Organism>();
 }

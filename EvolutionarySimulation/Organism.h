@@ -35,4 +35,6 @@ namespace DNA {
 			return phenotype;
 		}
 	};
+
+	std::vector<Organism> mate(const Organism& mom, const Organism& dad);
 }

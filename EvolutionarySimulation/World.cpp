@@ -2,16 +2,16 @@
 
 
 
-World::World()
+Environment::World::World()
 {
 }
 
 
-World::~World()
+Environment::World::~World()
 {
 }
 
-float World::total_diversity()
+float Environment::World::total_diversity()
 {
 	return populations.size() * POPULATION_IMPORTANCE 
 		 + (std::accumulate(populations.begin(), populations.end(), 0,

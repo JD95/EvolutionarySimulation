@@ -5,14 +5,28 @@
 
 #include "Organism.h"
 
-class Population
-{
-	std::vector<DNA::Organism> organisms;
+namespace Environment {
+	class Population
+	{
+		std::vector<DNA::Organism> organisms;
 
-public:
-	Population();
-	~Population();
+	public:
+		Population();
+		~Population();
 
-	float diversity();
-};
+		// Measures the overall diversity of the population
+		// by comparing the set differences of each of the
+		// organisms with every other organism.
+		float diversity();
+
+		// The population goes through a mating season
+		// where all viable organisms attempt to reproduce.
+		// Any organisms which cannot reproduce due to genetic
+		// differences will be removed from the population and
+		// returned from the function.
+		std::vector<DNA::Organism> reproduce();
+	};
+}
+
+
 
