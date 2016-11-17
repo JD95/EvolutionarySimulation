@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="Genome.cpp" />
+    <ClCompile Include="Interaction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Population.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Attribute.h" />
     <ClInclude Include="Genome.h" />
+    <ClInclude Include="Interaction.h" />
     <ClInclude Include="Organism.h" />
     <ClInclude Include="Population.h" />
   </ItemGroup>

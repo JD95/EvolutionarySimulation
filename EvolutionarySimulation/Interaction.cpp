@@ -1,6 +1,6 @@
  #include "Interaction.h";
 
-bool compare_attack(_attribute A, _attribute B, int &wins, int &lose)
+bool compare_attack(Attribute A, Attribute B, int &wins, int &lose)
 {
 	switch (check_with[A.type][B.type])
 	{
@@ -22,7 +22,7 @@ bool compare_attack(_attribute A, _attribute B, int &wins, int &lose)
 
 }
 
-bool attack(std::vector<_attribute> attacker, std::vector<_attribute> defender)
+bool attack(std::vector<Attribute> attacker, std::vector<Attribute> defender)
 {
 	int win_count = 0;
 	int lose_count = 0;

@@ -30,6 +30,9 @@
     <ClCompile Include="Population.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Interaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Genome.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Population.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Interaction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
