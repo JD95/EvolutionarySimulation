@@ -30,5 +30,11 @@ namespace DNA {
 			return diff.size() < Organism::SPECIATION_LIMIT * l.phenotype.size() 
 				&& diff.size() < Organism::SPECIATION_LIMIT * r.phenotype.size();
 		}
+
+		const std::vector<Attribute>& get_phenotype() {
+			return phenotype;
+		}
 	};
+
+	std::vector<Organism> mate(const Organism& mom, const Organism& dad);
 }
