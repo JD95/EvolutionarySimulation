@@ -22,6 +22,7 @@ bool compare_attack(Attribute A, Attribute B, int &wins, int &lose)
 
 }
 
+	    // Offenders Offensive traits    // Defender's Defense traits
 bool attack(std::vector<Attribute> attacker, std::vector<Attribute> defender)
 {
 	int win_count = 0;
