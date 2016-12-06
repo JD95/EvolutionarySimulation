@@ -8,6 +8,7 @@
 #include <functional>
 #include <iostream>
 #include <tuple>
+#include <random>
 
 namespace DNA
 {
@@ -24,7 +25,7 @@ namespace DNA
 
 	public:
 
-		const int REPRODUCTION_CHUNK_SIZE = 4;
+		static constexpr int REPRODUCTION_CHUNK_SIZE = 4;
 
 		int find_sequence( const int start
 						 , const string &sequence
@@ -53,7 +54,11 @@ namespace DNA
 
 		// Extracts the valid genes within the genome
 		vector<string> genes() const;
+
+		const string& get_nucleotides() const { return nucleotides;  }
 	};
+
+	void mutate(std::string& nucleotides);
 }
 
 

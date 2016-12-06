@@ -68,3 +68,23 @@ vector<std::string> DNA::Genome::genes() const
 
 	return gs;
 }
+
+void DNA::mutate(std::string& nucleotides)
+{
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distribution(0, nucleotides.size() - 1);
+	
+	int mutation_spot = distribution(generator);
+
+	switch (distribution(generator) % 3) {
+			
+	case 0: //point insertion
+		nucleotides.insert(distribution(generator), 1,"ATGC"[distribution(generator) % 4]);
+		break;
+	case 1: // point deletion
+		nucleotides.erase(distribution(generator), 1);
+	case 2: // point change
+		nucleotides.replace(distribution(generator), 1, 1, "ATGC"[distribution(generator) % 4]);
+		break;
+	}
+}

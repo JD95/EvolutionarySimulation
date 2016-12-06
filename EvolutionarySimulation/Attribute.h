@@ -40,7 +40,7 @@ bool dominant_gene(std::string gene);
 
 std::string show_AttributeType(AttributeType t);
 
-class Attribute
+struct Attribute
 {
 	const int attribute_types = 5;
 	AttributeType type;
