@@ -146,15 +146,19 @@
     <ClCompile Include="Genome.cpp" />
     <ClCompile Include="Interaction.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NaturalResource.cpp" />
     <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Population.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attribute.h" />
     <ClInclude Include="Genome.h" />
     <ClInclude Include="Interaction.h" />
+    <ClInclude Include="NaturalResource.h" />
     <ClInclude Include="Organism.h" />
     <ClInclude Include="Population.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

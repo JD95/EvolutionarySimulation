@@ -13,7 +13,7 @@ namespace Environment {
 
 		// All of the organisms currently using
 		// this resource
-		std::vector<DNA::Organism&> current_load;
+		std::vector<DNA::Organism*> current_load;
 
 	public:
 		NaturalResource();
