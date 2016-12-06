@@ -71,20 +71,20 @@ vector<std::string> DNA::Genome::genes() const
 
 void DNA::mutate(std::string& nucleotides)
 {
-	std::default_random_engine generator;
+	std::default_random_engine mutation_engine(time(0));
 	std::uniform_int_distribution<int> distribution(0, nucleotides.size() - 1);
 	
-	int mutation_spot = distribution(generator);
+	int mutation_spot = distribution(mutation_engine);
 
-	switch (distribution(generator) % 3) {
+	switch (distribution(mutation_engine) % 3) {
 			
 	case 0: //point insertion
-		nucleotides.insert(distribution(generator), 1,"ATGC"[distribution(generator) % 4]);
+		nucleotides.insert(distribution(mutation_engine), 1,"ATGC"[distribution(mutation_engine) % 4]);
 		break;
 	case 1: // point deletion
-		nucleotides.erase(distribution(generator), 1);
+		nucleotides.erase(distribution(mutation_engine), 1);
 	case 2: // point change
-		nucleotides.replace(distribution(generator), 1, 1, "ATGC"[distribution(generator) % 4]);
+		nucleotides.replace(distribution(mutation_engine), 1, 1, "ATGC"[distribution(mutation_engine) % 4]);
 		break;
 	}
 }

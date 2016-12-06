@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "Attribute.h";
+#include "Attribute.h"
 
 int check_with[6][6] = {
 	{ 0, 1, 0, 1, 1, 2 },

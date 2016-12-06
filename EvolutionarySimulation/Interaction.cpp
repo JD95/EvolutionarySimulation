@@ -1,4 +1,4 @@
- #include "Interaction.h";
+ #include "Interaction.h"
 
 bool compare_attack(Attribute A, Attribute B, int &wins, int &lose)
 {

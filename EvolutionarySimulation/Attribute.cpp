@@ -13,8 +13,17 @@ Attribute::Attribute(std::string gene)
 {
 	std::hash<std::string> hash_fn;
 
-	value = hash_fn(gene);
+	value = abs((int)hash_fn(gene));
 	type = (AttributeType) (value % attribute_types);
+
+	switch (type) {
+	case AttributeType::ResourcesNeeded: subtype = 0; break;
+	case AttributeType::ResourcePref: subtype = 0; break;
+	case AttributeType::OffensiveTool: subtype = (value % 6); break;
+	case AttributeType::DefensiveTool: subtype = (value % 6); break;
+	case AttributeType::ReproductiveStrat: subtype = (value % 3); break;
+	}
+
 	dominant = dominant_gene(gene);
 }
 
