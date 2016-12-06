@@ -11,8 +11,6 @@
 
 namespace DNA {
 
-
-
 	class Organism
 	{
 		Genome genome;
@@ -36,7 +34,7 @@ namespace DNA {
 			std::vector<Attribute> diff(1);
 			std::set_difference(l.phenotype.begin(), l.phenotype.end(),
 				r.phenotype.begin(), r.phenotype.end(),
-				diff.begin());
+				std::back_inserter(diff));
 
 			return diff.size() < Organism::SPECIATION_LIMIT * l.phenotype.size()
 				&& diff.size() < Organism::SPECIATION_LIMIT * r.phenotype.size();
