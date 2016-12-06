@@ -21,8 +21,6 @@ namespace DNA
 	using std::function;
 	using std::tuple;
 
-	
-
 	class Genome
 	{
 		const int MARK_SIZE = 3;
@@ -67,7 +65,9 @@ namespace DNA
 		const string& get_nucleotides() const { return nucleotides; }
 	};
 
-	void mutate(std::string& nucleotides);
+	std::string& mutate(std::string& nucleotides);
+
+	std::string generate_initial_genome();
 }
 
 

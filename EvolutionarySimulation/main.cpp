@@ -14,11 +14,14 @@ using namespace DNA;
 
 int main()
 {
-	const Organism subject1("ATTGATCAGCTATACGATTCTAAGCACGTGACAGGTCACACTACGTGCACGCCGGGACTATTCACACCCGGCCGACGACGCGAGCTATTAGCGAGGTATTAGAT");
-	const Organism subject2("ATTGATCAGCACTGACTGACTGGCAATTTCACACACGGCACTGCACTGCGTGACGTCACGACTTTACACACGGCGCGGGGGACAAACTAGAGCTATTAGCGAGGTATTAGAT");
+	while (true) {
+		auto seed_nucleotides = generate_initial_genome();
+		Organism subject1(seed_nucleotides);
+		Organism subject2(mutate(seed_nucleotides));
 
-	std::cout << (subject1 == subject2 ? "Subject1 is the same species as Subject2!\n" : "Not Same species!\n");
+		std::cout << (subject1 == subject2 ? "Subject1 is the same species as Subject2!\n" : "Not Same species!\n");
 
-	system("pause");
+		system("pause");
+	}
 	return 0;
 }

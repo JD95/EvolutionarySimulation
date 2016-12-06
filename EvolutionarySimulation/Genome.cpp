@@ -60,6 +60,9 @@ vector<std::string> DNA::Genome::genes() const
 		auto gene = std::get<0>(gene_info);
 		int next_gene_end = std::get<1>(gene_info);
 		
+		// No more genes found
+		if (next_gene_end == -1) break;
+
 		gs.push_back(gene);
 
 		start = next_gene_end + 3;
@@ -69,7 +72,7 @@ vector<std::string> DNA::Genome::genes() const
 	return gs;
 }
 
-void DNA::mutate(std::string& nucleotides)
+std::string& DNA::mutate(std::string& nucleotides)
 {
 	std::default_random_engine mutation_engine(time(0));
 	std::uniform_int_distribution<int> distribution(0, nucleotides.size() - 1);
@@ -87,4 +90,33 @@ void DNA::mutate(std::string& nucleotides)
 		nucleotides.replace(distribution(mutation_engine), 1, 1, "ATGC"[distribution(mutation_engine) % 4]);
 		break;
 	}
+
+	return nucleotides;
+}
+
+std::string DNA::generate_initial_genome()
+{
+	std::default_random_engine engine(time(0));
+	std::uniform_int_distribution<int> rand_nucl(0,3);
+	std::uniform_int_distribution<int> rand_chunk(5, 20);
+
+	string nucleotide = "";
+	nucleotide.reserve(1000);
+
+	for (int i = 0; i < 20; i++)
+	{
+		nucleotide += "ATT";
+
+		for (int j = 0; j < rand_chunk(engine); j++)
+			nucleotide += ("ATCG")[rand_nucl(engine)];
+
+		nucleotide += "GAT";
+
+		for (int j = 0; j < rand_chunk(engine); j++)
+			nucleotide += ("ATCG")[rand_nucl(engine)];
+	}
+
+	nucleotide.shrink_to_fit();
+
+	return nucleotide;
 }
