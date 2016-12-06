@@ -13,21 +13,21 @@ enum AttributeType {
 };
 
 enum OffensiveTool {
-	Claws,
-	Teeth,
-	HornsO,
-	Constrict,
-	Trap,
-	Strength
+	Claws = 0,
+	Teeth = 1,
+	HornsO = 2,
+	Constrict = 3,
+	Trap = 4,
+	Strength = 5
 };
 
 enum DefensiveTool {
-	HornsD,
-	Hide,
-	Posion,
-	Spikes,
-	Smell,
-	Camo
+	HornsD = 0,
+	Hide = 1,
+	Posion = 2,
+	Spikes = 3,
+	Smell = 4,
+	Camo = 5
 };
 
 enum ReproductiveStrat {

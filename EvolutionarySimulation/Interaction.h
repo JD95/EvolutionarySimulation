@@ -13,12 +13,6 @@ int check_with[6][6] = {
 	{ 2, 2, 2, 2, 1, 2 }
 };
 
-struct _attribute
-{
-	AttributeType type;
-	int value;
-};
-
 bool compare_attack(Attribute A, Attribute B);
 
 bool attack(std::vector<Attribute> attacker, std::vector<Attribute> defender);
