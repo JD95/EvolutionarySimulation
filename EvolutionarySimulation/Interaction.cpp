@@ -1,22 +1,21 @@
  #include "Interaction.h";
 
-bool compare_attack(Attribute A, Attribute B, int &wins, int &lose)
+void compare_attack(Attribute A, Attribute B, int &wins, int &lose)
 {
-	switch (check_with[A.type][B.type])
+	tool temp;
+		switch (temp.check_with[A.subtype][B.subtype])
 	{
-	case 0:
+	case 0:				//Attacker wins
 		wins++;
 		break;
-	case 1:
+	case 1:				//Defender wins
 		lose++;
 		break;
-	case 2:
-		if (A.value > B.value)
-			wins++;
-		else
-			lose++;
+	case 2:				//Special case
+		if (A.value > B.value)	wins++;
+		else					lose++;
 		break;
-	case 3:
+	case 3:				//draw
 		break;
 	}
 
@@ -27,12 +26,15 @@ bool attack(std::vector<Attribute> attacker, std::vector<Attribute> defender)
 {
 	int win_count = 0;
 	int lose_count = 0;
-	for (std::vector<int>::size_type att_itt = 0; att_itt != attacker.size(); att_itt++)
+
+	for (Attribute def : defender)
 	{
-		for (std::vector<int>::size_type def_itt = 0; def_itt != defender.size(); def_itt++)
+		for (Attribute att : attacker)
 		{
-			compare_attack(attacker[att_itt], defender[def_itt], win_count, lose_count);
+			compare_attack(att, def, win_count, lose_count);
 		}
 	}
-	return true;
+
+	return (win_count > lose_count);
+	
 }
