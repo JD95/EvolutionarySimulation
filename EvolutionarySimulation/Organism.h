@@ -18,6 +18,7 @@ namespace DNA {
 
 		static constexpr float SPECIATION_LIMIT = 0.85f;
 
+		Organism();
 		Organism(string dna);
 		~Organism();
 

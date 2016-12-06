@@ -1,5 +1,9 @@
 #include "Attribute.h"
 
+Attribute::Attribute()
+{
+}
+
 Attribute::Attribute(AttributeType t, int v, bool d)
 	:type(t), value(v), dominant(d)
 {

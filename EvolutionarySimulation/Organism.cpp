@@ -1,5 +1,9 @@
 #include "Organism.h"
 
+DNA::Organism::Organism()
+{
+}
+
 DNA::Organism::Organism(string dna)
 	: genome(dna)
 {

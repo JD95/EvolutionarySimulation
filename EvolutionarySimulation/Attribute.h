@@ -49,6 +49,7 @@ struct Attribute
 	bool dominant;
 
 public:
+	Attribute();
 	Attribute(AttributeType t, int v, bool d);
 	Attribute(std::string gene);
 	~Attribute();

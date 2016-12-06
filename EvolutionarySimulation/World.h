@@ -10,7 +10,7 @@ namespace Environment {
 	class World
 	{
 		std::vector<Population> populations;
-		static constexpr float POPULATION_IMPORTANCE = 0.12;
+		static constexpr float POPULATION_IMPORTANCE = 0.12f;
 
 	public:
 

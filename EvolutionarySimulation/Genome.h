@@ -50,6 +50,11 @@ namespace DNA
 		Genome();
 		Genome(string ns);
 
+		Genome& operator= (Genome& other) {
+			std::swap(this->nucleotides, other.nucleotides);
+			return *this;
+		}
+
 		std::string to_string() const;
 
 		// Extracts the valid genes within the genome

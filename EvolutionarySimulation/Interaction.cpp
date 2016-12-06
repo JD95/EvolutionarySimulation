@@ -20,6 +20,7 @@ bool compare_attack(Attribute A, Attribute B, int &wins, int &lose)
 		break;
 	}
 
+	return false;
 }
 
 	    // Offenders Offensive traits    // Defender's Defense traits
