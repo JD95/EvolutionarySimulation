@@ -9,6 +9,7 @@
 #include "Search.h"
 #include "Attribute.h"
 #include "Organism.h"
+#include "Interaction.h"
 
 using namespace DNA;
 
@@ -23,5 +24,23 @@ int main()
 
 		system("pause");
 	}
+
+	Attribute attackAtt1(AttributeType::OffensiveTool, 8, true);
+	attackAtt1.subtype = OffensiveTool::Claws;
+	Attribute attackAtt2(AttributeType::OffensiveTool, 8, true);
+	attackAtt2.subtype = OffensiveTool::Constrict;
+	std::vector <Attribute> attList;
+	attList.push_back(attackAtt1);
+	attList.push_back(attackAtt2);
+
+	Attribute defender(AttributeType::DefensiveTool, 9, true);
+	defender.subtype = DefensiveTool::Posion;
+	std::vector <Attribute> defList;
+	defList.push_back(defender);
+
+	bool answer = attack(attList, defList);
+
+	system("pause");
+
 	return 0;
 }
