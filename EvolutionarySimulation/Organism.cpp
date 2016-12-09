@@ -1,12 +1,14 @@
 #include "Organism.h"
+#include <random>
+#include <time.h>
 
 DNA::Organism::Organism()
+	: got_resources(false), starve_counter(STARVE_LIMIT)
 {
-	int x = 5;
 }
 
 DNA::Organism::Organism(string dna)
-	: genome(dna)
+	: genome(dna), got_resources(false), starve_counter(STARVE_LIMIT)
 {
 	auto genes = genome.genes();
 	phenotype.reserve(genes.size());
@@ -16,11 +18,35 @@ DNA::Organism::Organism(string dna)
 	}
 
 	std::sort(phenotype.begin(), phenotype.end());
+
+	std::random_device device;
+	std::default_random_engine engine(device());
+	std::uniform_int_distribution<int> alpha_upper(65, 90);
+	std::uniform_int_distribution<int> alpha_lower(97, 122);
+	std::uniform_int_distribution<int> digit(48, 57);
+	std::uniform_int_distribution<int> up_or_low(0, 1);
+
+	name = "";
+	name += (char)((up_or_low(engine)) ? alpha_upper(engine) : alpha_lower(engine));
+	name += (char)digit(engine);
+	name += " - ";
+	name += (char)((up_or_low(engine)) ? alpha_upper(engine) : alpha_lower(engine));
+	name += (char)digit(engine);
 }
 
 
 DNA::Organism::~Organism()
 {
+}
+
+void DNA::Organism::give_resources()
+{
+	got_resources = true;
+}
+
+void DNA::Organism::starve()
+{
+	starve_counter--;
 }
 
 int DNA::num_offspring(const Organism& org) {

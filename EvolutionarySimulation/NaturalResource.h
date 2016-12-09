@@ -1,8 +1,10 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 
 #include "Organism.h"
+
 
 namespace Environment {
 
@@ -17,19 +19,32 @@ namespace Environment {
 
 	public:
 		NaturalResource();
+		NaturalResource(int capacity);
 		~NaturalResource();
 
 		// Attempt to allow an organism to use
 		// this resource. Will return false if
 		// the resource is at capacity.
-		bool add_organism(const DNA::Organism& o);
+		bool add_organism(DNA::Organism* o);
 
 		// An organism attempts to take a spot away from
 		// another organism using this resource. The two
 		// will fight and if the attempt succeeds the
 		// organism will take the loser's spot using the
 		// resource.
-		bool challenge_organism(const DNA::Organism o);
+		bool challenge_organism(DNA::Organism* o);
+
+		friend std::ostream& operator<< (std::ostream& out, NaturalResource& r) {
+			
+			out << "Resource: " << "\n";
+			
+			for (auto o : r.current_load)
+				out << *o << "\n";
+
+			return out;
+		}
+
+		void feed_current_load();
 
 	};
 }

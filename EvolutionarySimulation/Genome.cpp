@@ -74,7 +74,8 @@ vector<std::string> DNA::Genome::genes() const
 
 std::string& DNA::mutate(std::string& nucleotides)
 {
-	std::default_random_engine mutation_engine(time(0));
+	std::random_device device;
+	std::default_random_engine mutation_engine(device());
 	std::uniform_int_distribution<int> distribution(0, nucleotides.size() - 1);
 	
 	int mutation_spot = distribution(mutation_engine);
@@ -96,7 +97,8 @@ std::string& DNA::mutate(std::string& nucleotides)
 
 std::string DNA::generate_initial_genome()
 {
-	std::default_random_engine engine(time(0));
+	std::random_device device;
+	std::default_random_engine engine(device());
 	std::uniform_int_distribution<int> rand_nucl(0,3);
 	std::uniform_int_distribution<int> rand_chunk(5, 20);
 

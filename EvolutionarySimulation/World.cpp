@@ -17,3 +17,7 @@ float Environment::World::total_diversity()
 		 + (std::accumulate(populations.begin(), populations.end(), 0.0f,
 			[](float d, Population p) { return p.diversity() + d; }) / populations.size());
 }
+
+void Environment::World::run_generation()
+{
+}

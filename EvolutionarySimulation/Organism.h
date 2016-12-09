@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -15,9 +16,13 @@ namespace DNA {
 	{
 		Genome genome;
 		std::vector<Attribute> phenotype;
+		bool got_resources;
+		int starve_counter;
+		std::string name;
 
 	public:
 		static constexpr float SPECIATION_LIMIT = 0.85f;
+		const int STARVE_LIMIT = 3;
 
 		Organism();
 		Organism(string dna);
@@ -26,6 +31,9 @@ namespace DNA {
 		Organism& operator= (Organism other) {
 			std::swap(this->genome, other.genome);
 			std::swap(this->phenotype, other.phenotype);
+			std::swap(this->name, other.name);
+			std::swap(this->got_resources, other.got_resources);
+			std::swap(this->starve_counter, other.starve_counter);
 			return *this;
 		}
 
@@ -40,11 +48,30 @@ namespace DNA {
 				&& diff.size() < Organism::SPECIATION_LIMIT * r.phenotype.size();
 		}
 
+		friend std::ostream& operator<<(std::ostream& out, Organism& o) {
+			
+			out << "Organism: " << o.name << " " << (o.got_resources ? "fed" : "hungry");
+
+			return out;
+		}
+
 		const std::vector<Attribute>& get_phenotype() const {
 			return phenotype;
 		}
 
 		const Genome& get_genome() const { return genome; }
+
+		std::vector<Attribute> get_traits(AttributeType t) const {
+			std::vector<Attribute> traits;
+			std::copy_if(phenotype.begin(), phenotype.end(), std::back_inserter(traits),
+				[&t](Attribute a) { return a.type == t; });
+			return traits;
+		}
+
+		void give_resources();
+		void starve();
+
+		std::string get_name() { return name; }
 	};
 
 	std::vector<Organism> mate(const Organism& mom, const Organism& dad);

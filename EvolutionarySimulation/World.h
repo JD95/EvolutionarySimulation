@@ -5,10 +5,12 @@
 #include <numeric>
 
 #include "Population.h"
+#include "NaturalResource.h"
 
 namespace Environment {
 	class World
 	{
+		std::vector<NaturalResource> resources;
 		std::vector<Population> populations;
 		static constexpr float POPULATION_IMPORTANCE = 0.12f;
 
@@ -23,6 +25,8 @@ namespace Environment {
 		// to the total number of populations times the
 		// population importance constant.
 		inline float total_diversity();
+
+		void run_generation();
 	};
 }
 
