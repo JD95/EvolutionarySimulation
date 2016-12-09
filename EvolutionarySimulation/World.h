@@ -36,6 +36,13 @@ namespace Environment {
 				std::cout << pop << "\n";
 			}
 		}
+
+		void disaster() {
+			for (auto& population : populations) {
+				population.disaster();
+			}
+		}
+
 	};
 
 	void make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies);

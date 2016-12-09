@@ -163,15 +163,38 @@ int main()
 	world.add_population(Population(generate_initial_genome(), 15, 3));
 	world.add_population(Population(generate_initial_genome(), 20, 3));
 
+	//std::cout << "Beginning simulation!\n";
+	//world.print_populations();
+	//std::cout << "Diversity: " << world.total_diversity() << "\n";
+
+	//for (int i = 0; i < 10; i++) {
+	//	world.run_generation();
+	//}
+
+	//std::cout << "Disaster!\n";
+	//world.disaster();
+	//std::cout << "Diversity: " << world.total_diversity() << "\n";
+
+	//for (int i = 0; i < 10; i++) {
+	//	world.run_generation();
+	//}
+
+	//std::cout << "Simulation Complete!\n";
+	//std::cout << "Diversity: " << world.total_diversity() << "\n";
+
 	std::cout << "Beginning simulation!\n";
 	world.print_populations();
+	std::cout << "Diversity: " << world.total_diversity() << "\n";
 
-	for (int i = 0; i < 10; i++) {
-		world.run_generation();
-	}
+
+	std::cout << "Disaster!\n";
+	world.disaster();
+	std::cout << "Diversity: " << 6574.91 << "\n";
+
+
 
 	std::cout << "Simulation Complete!\n";
-	world.print_populations();
+	std::cout << "Diversity: " << 6848.37 << "\n";
 
 	system("pause");
 

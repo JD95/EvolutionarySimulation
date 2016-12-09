@@ -96,8 +96,8 @@ namespace Environment {
 
 		friend std::ostream& operator<< (std::ostream& out, Population& population) {
 			out << "Population - " << population.name << " " << population.size() << ":\n";
-			for (auto& o : population.organisms)
-				out << "\t" << o << "\n";
+			/*for (auto& o : population.organisms)
+				out << "\t" << o << "\n";*/
 			return out;
 		}
 
@@ -131,6 +131,14 @@ namespace Environment {
 		}
 		void add_babies(std::vector<DNA::Organism> babies) { 
 			std::copy(babies.begin(), babies.end(), std::back_inserter(organisms));
+		}
+
+		void disaster() {
+			std::random_device device;
+			std::default_random_engine engine(device());
+			std::uniform_int_distribution<int> n(size() / 2, size() - 1);
+
+			organisms.erase(organisms.begin() + n(engine), organisms.end());
 		}
 	};
 }
