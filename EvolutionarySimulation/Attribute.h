@@ -51,7 +51,7 @@ struct Attribute
 public:
 	Attribute();
 	Attribute(AttributeType t, int v, bool d);
-	Attribute(std::string gene);
+	Attribute(std::string gene, int num_populations);
 	~Attribute();
 
 	Attribute& operator= (Attribute other) {

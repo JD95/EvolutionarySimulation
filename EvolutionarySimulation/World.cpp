@@ -20,4 +20,16 @@ float Environment::World::total_diversity()
 
 void Environment::World::run_generation()
 {
+	// Each organism attempts to acqurie the resources it needs
+		// extract resources required attributes
+		// try to acquire resource down the list
+
+	// All natural resources feed their current loads
+
+	// Populations mate
+		// Organisms which did not get resources do not get to mate
+		// Organisms which are incompatible with any other organism becomes new population
+
+
+	// New populations are added to world
 }

@@ -25,7 +25,7 @@ namespace DNA {
 		const int STARVE_LIMIT = 3;
 
 		Organism();
-		Organism(string dna);
+		Organism(string dna, int pop_index);
 		~Organism();
 
 		Organism& operator= (Organism other) {
@@ -74,7 +74,7 @@ namespace DNA {
 		std::string get_name() { return name; }
 	};
 
-	std::vector<Organism> mate(const Organism& mom, const Organism& dad);
+	std::vector<Organism> mate(const Organism& mom, const Organism& dad, int pop_index);
 
 	int num_offspring(const Organism& org);
 

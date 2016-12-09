@@ -1,4 +1,5 @@
 #include "Attribute.h"
+#include "NaturalResource.h"
 
 Attribute::Attribute()
 {
@@ -9,15 +10,18 @@ Attribute::Attribute(AttributeType t, int v, bool d)
 {
 }
 
-Attribute::Attribute(std::string gene)
+Attribute::Attribute(std::string gene, int num_populations)
 {
+	const int nat_resources = Environment::NUM_NAT_RESOURCES;
 	std::hash<std::string> hash_fn;
 
 	value = abs((int)hash_fn(gene));
 	type = (AttributeType) (value % attribute_types);
 
 	switch (type) {
-	case AttributeType::ResourcesNeeded: subtype = 0; break;
+	case AttributeType::ResourcesNeeded: 
+		subtype = (value % (nat_resources + num_populations)); break;
+		
 	case AttributeType::ResourcePref: subtype = 0; break;
 	case AttributeType::OffensiveTool: subtype = (value % 6); break;
 	case AttributeType::DefensiveTool: subtype = (value % 6); break;

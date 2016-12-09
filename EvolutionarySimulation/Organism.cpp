@@ -7,14 +7,14 @@ DNA::Organism::Organism()
 {
 }
 
-DNA::Organism::Organism(string dna)
+DNA::Organism::Organism(string dna, int pop_index)
 	: genome(dna), got_resources(false), starve_counter(STARVE_LIMIT)
 {
 	auto genes = genome.genes();
 	phenotype.reserve(genes.size());
 
 	for (auto gene : genes) {
-		phenotype.emplace_back(Attribute(gene));
+		phenotype.emplace_back(Attribute(gene, pop_index));
 	}
 
 	std::sort(phenotype.begin(), phenotype.end());
@@ -104,7 +104,7 @@ std::string DNA::generate_genome(const string& mom, const string& dad, std::defa
 }
 
 
-std::vector<DNA::Organism> DNA::mate(const Organism & mom, const Organism & dad)
+std::vector<DNA::Organism> DNA::mate(const Organism & mom, const Organism & dad, int pop_index)
 {
 	auto num_off = num_offspring(mom);
 	vector<Organism> off_spring(num_off);
@@ -113,7 +113,7 @@ std::vector<DNA::Organism> DNA::mate(const Organism & mom, const Organism & dad)
 	const int chunk_size = Genome::REPRODUCTION_CHUNK_SIZE;
 
 	for (auto& child : off_spring) {
-		child = Organism(generate_genome(mom.get_genome().get_nucleotides(), dad.get_genome().get_nucleotides(), parent_choice));
+		child = Organism(generate_genome(mom.get_genome().get_nucleotides(), dad.get_genome().get_nucleotides(), parent_choice), pop_index);
 	}
 
 	return off_spring;

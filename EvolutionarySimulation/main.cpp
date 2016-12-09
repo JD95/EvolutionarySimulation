@@ -11,14 +11,16 @@
 #include "Organism.h"
 #include "Interaction.h"
 #include "NaturalResource.h"
+#include "Population.h"
+
 using namespace DNA;
 using namespace Environment;
 
 void test_seed_gen() {
 
 	auto seed_nucleotides = generate_initial_genome();
-	Organism subject1(seed_nucleotides);
-	Organism subject2(mutate(seed_nucleotides));
+	Organism subject1(seed_nucleotides, 0);
+	Organism subject2(mutate(seed_nucleotides), 0);
 
 	std::cout << (subject1 == subject2 ? "Subject1 is the same species as Subject2!\n" : "Not Same species!\n");
 
@@ -46,18 +48,10 @@ void test_attack() {
 void test_natural_resource() {
 	const int pop_a_size = 5;
 	const int pop_b_size = 10;
-	auto pop_a_seed = generate_initial_genome();
-	auto pop_b_seed = generate_initial_genome();
 
-	std::vector<Organism> pop_a(pop_a_size);
-	std::vector<Organism> pop_b(pop_b_size);
+	Population pop_a(generate_initial_genome(), pop_a_size, 0);
+	Population pop_b(generate_initial_genome(), pop_b_size, 0);
 	NaturalResource water(5);
-
-	for (auto& o : pop_a)
-		o = Organism(mutate(pop_a_seed));
-
-	for (auto& o : pop_b)
-		o = Organism(mutate(pop_a_seed));
 
 	// Allow population a to access water
 	for (int i = 0; i < pop_a_size; i++)
@@ -79,11 +73,28 @@ void test_natural_resource() {
 
 	water.feed_current_load();
 
-	std::cout << "Population A:\n";
-	for (auto& o : pop_a) std::cout << "\t" << o << "\n";
+	std::cout << pop_a;
+	std::cout << pop_b;
 
-	std::cout << "Population B:\n";
-	for (auto& o : pop_b) std::cout << "\t" << o << "\n";
+	system("pause");
+}
+
+void test_hunting() {
+	const int pop_a_size = 5;
+
+	Organism hunter(generate_initial_genome(), 0);
+	Population pop_b(generate_initial_genome(), pop_a_size, 0);
+
+	std::cout << pop_b << "\n";
+
+	if (pop_b.hunt(hunter)) {
+		std::cout << "Hunt was sucessful!\n";
+	}
+	else {
+		std::cout << "Hunt failed!\n";
+	}
+
+	std::cout << pop_b << "\n";
 
 	system("pause");
 }
@@ -91,7 +102,8 @@ void test_natural_resource() {
 int main()
 {
 	while (true) {
-		test_natural_resource();
+		//test_natural_resource();
+		test_hunting();
 		system("cls");
 	}
 

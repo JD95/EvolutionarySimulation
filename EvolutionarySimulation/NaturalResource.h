@@ -8,6 +8,16 @@
 
 namespace Environment {
 
+	const int NUM_NAT_RESOURCES = 5;
+
+	enum NaturalResources {
+		Water,
+		Acorns,
+		Berries,
+		Grass,
+		Worms
+	};
+
 	class NaturalResource
 	{
 		int id;
