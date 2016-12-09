@@ -24,8 +24,16 @@ bool Environment::NaturalResource::add_organism(DNA::Organism * o)
 		current_load.push_back(o);
 		return true;
 	}
-		
-	else return false;
+	else {
+		for (auto& spot : current_load) {
+			if (spot->is_dead()) {
+				spot = o;
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 bool Environment::NaturalResource::challenge_organism(DNA::Organism* o)

@@ -8,7 +8,8 @@ DNA::Organism::Organism()
 }
 
 DNA::Organism::Organism(string dna, int pop_index)
-	: genome(dna), got_resources(false), starve_counter(STARVE_LIMIT)
+	: genome(dna), got_resources(false), starve_counter(STARVE_LIMIT), 
+	age(0), needs_fulfilled(0), dead(false)
 {
 	auto genes = genome.genes();
 	phenotype.reserve(genes.size());
@@ -39,23 +40,13 @@ DNA::Organism::~Organism()
 {
 }
 
-void DNA::Organism::give_resources()
-{
-	got_resources = true;
-}
-
-void DNA::Organism::starve()
-{
-	starve_counter--;
-}
-
 int DNA::num_offspring(const Organism& org) {
 	
 	auto mom_phenotype = org.get_phenotype();
 
-	std::vector<Attribute> strategies(1);
+	std::vector<Attribute> strategies;
 
-	std::copy_if(mom_phenotype.begin(), mom_phenotype.end(), strategies.begin(),
+	std::copy_if(mom_phenotype.begin(), mom_phenotype.end(), std::back_inserter(strategies),
 		[](Attribute feat) { return feat.type == AttributeType::ReproductiveStrat; });
 
 	if (strategies.size() == 0) return 1;
@@ -104,17 +95,15 @@ std::string DNA::generate_genome(const string& mom, const string& dad, std::defa
 }
 
 
-std::vector<DNA::Organism> DNA::mate(const Organism & mom, const Organism & dad, int pop_index)
+void DNA::mate(const Organism & mom, const Organism & dad, int pop_index, std::vector<Organism>& babies)
 {
 	auto num_off = num_offspring(mom);
-	vector<Organism> off_spring(num_off);
 	std::default_random_engine parent_choice(time(0));
 
 	const int chunk_size = Genome::REPRODUCTION_CHUNK_SIZE;
 
-	for (auto& child : off_spring) {
-		child = Organism(generate_genome(mom.get_genome().get_nucleotides(), dad.get_genome().get_nucleotides(), parent_choice), pop_index);
+	for (int i = 0; i < num_off; i++)
+	{
+		babies.emplace_back(Organism(generate_genome(mom.get_genome().get_nucleotides(), dad.get_genome().get_nucleotides(), parent_choice), pop_index));
 	}
-
-	return off_spring;
 }

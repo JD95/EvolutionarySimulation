@@ -6,6 +6,7 @@
 #include <algorithm>
 
 #include "Organism.h"
+#include "NaturalResource.h"
 
 namespace Environment {
 
@@ -72,10 +73,12 @@ namespace Environment {
 	{
 		std::string name;
 		std::vector<DNA::Organism> organisms;
-		bool exinct;
+		bool extinct;
+		int population_age;
 
 	public:
 		Population();
+		Population(DNA::Organism outcast);
 		Population(std::string gene, int size, int pop_index);
 		~Population();
 
@@ -92,7 +95,7 @@ namespace Environment {
 		std::vector<DNA::Organism> reproduce();
 
 		friend std::ostream& operator<< (std::ostream& out, Population& population) {
-			out << "Population - " << population.name << ":\n";
+			out << "Population - " << population.name << " " << population.size() << ":\n";
 			for (auto& o : population.organisms)
 				out << "\t" << o << "\n";
 			return out;
@@ -101,9 +104,34 @@ namespace Environment {
 		DNA::Organism& operator[](std::size_t idx) { return organisms[idx]; }
 		const DNA::Organism& operator[](std::size_t idx) const { return organisms[idx]; }
 
+		friend bool operator== (const Population& a, const Population& b) {
+			return a.name == b.name;
+		}
+
+		friend bool operator!= (const Population& a, const Population& b) {
+			return a.name != b.name;
+		}
+
 		void go_extinct();
 
 		bool hunt(DNA::Organism& o);
+
+		bool is_extinct() { return extinct; }
+
+		void gather_resources(std::vector<Population>& populations, std::vector<NaturalResource>& resources);
+
+		void age_population();
+
+		int size() { return organisms.size(); }
+
+		void add_organism(DNA::Organism o) { organisms.push_back(o); }
+		void remove_organism(int i) { 
+			if (organisms.size() == 0) return;
+			organisms.erase(organisms.begin() + i); 
+		}
+		void add_babies(std::vector<DNA::Organism> babies) { 
+			std::copy(babies.begin(), babies.end(), std::back_inserter(organisms));
+		}
 	};
 }
 

@@ -56,6 +56,8 @@ namespace Environment {
 
 		void feed_current_load();
 
+		void reset() { current_load.clear(); }
+
 	};
 }
 

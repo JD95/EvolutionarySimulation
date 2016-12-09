@@ -4,6 +4,7 @@
 #include <numeric>
 #include <string>
 #include <functional>
+#include <time.h>
 
 #include "Genome.h"
 #include "Search.h"
@@ -12,6 +13,7 @@
 #include "Interaction.h"
 #include "NaturalResource.h"
 #include "Population.h"
+#include "World.h"
 
 using namespace DNA;
 using namespace Environment;
@@ -99,13 +101,79 @@ void test_hunting() {
 	system("pause");
 }
 
+void test_diversity() {
+	World world({
+		NaturalResource(500),
+		NaturalResource(50),
+		NaturalResource(1000),
+		NaturalResource(46),
+		NaturalResource(27) 
+	});
+
+	for (int i = 1; i < 5; i++)
+	{
+		world.add_population(Population(generate_initial_genome(), pow(10,i), 0));
+		std::cout << "Total Diversity: " << world.total_diversity() << "\n";
+	}
+
+	system("pause");
+}
+
+void test_run_generation() {
+	World world({
+		NaturalResource(500),
+		NaturalResource(50),
+		NaturalResource(1000),
+		NaturalResource(46),
+		NaturalResource(27)
+	});
+
+	for (int i = 0; i < 3; i++) {
+		world.add_population(Population(generate_initial_genome(), 5, 3));
+	}
+
+	world.run_generation();
+	std::cout << "Generation complete!\n";
+
+	world.print_populations();
+
+
+	system("pause");
+}
+
 int main()
 {
-	while (true) {
-		//test_natural_resource();
-		test_hunting();
-		system("cls");
+	//while (true) {
+	//	test_natural_resource();
+	//	test_hunting();
+	//	test_diversity();
+	//	test_run_generation();
+	//	system("cls");
+	//}
+
+	World world({
+		NaturalResource(5),
+		NaturalResource(2),
+		NaturalResource(2),
+		NaturalResource(3),
+		NaturalResource(1)
+	});
+
+	world.add_population(Population(generate_initial_genome(), 34, 3));
+	world.add_population(Population(generate_initial_genome(), 15, 3));
+	world.add_population(Population(generate_initial_genome(), 20, 3));
+
+	std::cout << "Beginning simulation!\n";
+	world.print_populations();
+
+	for (int i = 0; i < 10; i++) {
+		world.run_generation();
 	}
+
+	std::cout << "Simulation Complete!\n";
+	world.print_populations();
+
+	system("pause");
 
 	return 0;
 }

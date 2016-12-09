@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -16,7 +17,7 @@ namespace Environment {
 
 	public:
 
-		World();
+		World(std::vector<NaturalResource> rs);
 		~World();
 
 		// Measures the total diversity of all
@@ -24,10 +25,23 @@ namespace Environment {
 		// individual diversity and then adding that
 		// to the total number of populations times the
 		// population importance constant.
-		inline float total_diversity();
+		float total_diversity();
 
 		void run_generation();
+
+		void add_population(Population p);
+
+		void print_populations() {
+			for (auto& pop : populations) {
+				std::cout << pop << "\n";
+			}
+		}
 	};
+
+	void make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies);
+
+	void make_outcast(int i, Population& pop, std::vector<Population>& populations);
+
 }
 
 
