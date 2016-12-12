@@ -33,8 +33,6 @@ Environment::Population::Population(DNA::Organism outcast)
 Environment::Population::Population(std::string gene, int size, int pop_index)
 	: extinct(false)
 {
-	organisms.reserve(size);
-
 	for (int i = 0; i < size; i++)
 	{
 		organisms.emplace_back(DNA::Organism(DNA::mutate(gene), pop_index));
@@ -134,8 +132,10 @@ void Environment::Population::age_population()
 	}
 	
 	// Kill old ones
-	std::remove_if(organisms.begin(), organisms.end(), 
-		[](DNA::Organism o) { return o.get_age() > 3 || o.is_dead(); });
+	std::remove_if(organisms.begin(), organisms.end(),
+		[](DNA::Organism& o) { return o.get_age() > 3 
+							       || o.get_starve_counter() <= 0
+								   || o.is_dead(); });
 
 	if (organisms.size() < 2) go_extinct();
 }

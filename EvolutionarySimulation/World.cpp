@@ -14,7 +14,7 @@ float Environment::World::total_diversity()
 {
 	return populations.size() * POPULATION_IMPORTANCE 
 		 + (std::accumulate(populations.begin(), populations.end(), 0.0f,
-			[](float d, Population p) { return p.diversity() + d; }) / populations.size());
+			[](float d, Population& p) { return p.diversity() + d; }) / populations.size());
 }
 
 void Environment::World::run_generation()
@@ -41,19 +41,30 @@ void Environment::World::run_generation()
 
 	// Populations mate
 	int pops = populations.size();
-	for (int i = 0; i < pops; i++) {
 
-		if (populations[i].is_extinct()) break;
+	std::vector<std::thread> threads(pops);
+
+	auto lock = &populations_mutex;
+	auto mating = [lock](Population& p, std::vector<Population>& populations) {
+		if (p.is_extinct()) return;
 
 		std::vector<DNA::Organism> babies;
-		
-		make_babies(populations[i], populations, babies);
-		
-		populations[i].add_babies(babies);
+
+		make_babies(p, populations, babies, *lock);
+
+		p.add_babies(babies);
+	};
+
+	for (int i = 0; i < pops; i++) {
+		threads[i] = std::thread(mating, populations[i], populations);
 	}
+
+	for (auto& t : threads) t.join();
+
+	std::cout << "Organisms in world: " << num_organisms() << "\n";
 }
 
-void Environment::make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies) {
+void Environment::make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies, std::mutex& lock) {
 	// Must recalculate size each time because we may remove organisms
 	for (int i = 0; i < pop.size() - 1; i++)
 	{
@@ -80,12 +91,13 @@ void Environment::make_babies(Population& pop, std::vector<Population>& populati
 
 		// Organisms which are incompatible with any other organism becomes new population
 		if (incompatible) {
-			make_outcast(i, pop, populations);
+			make_outcast(i, pop, populations, lock);
+			//i--; // population will swap outcast with last and delete the last
 		}
 	}
 }
 
-void Environment::make_outcast(int i, Population& pop, std::vector<Population>& populations)
+void Environment::make_outcast(int i, Population& pop, std::vector<Population>& populations, std::mutex& lock)
 {
 	std::cout << "New Pop created!\n";
 	bool found_kind = false;
@@ -99,6 +111,7 @@ void Environment::make_outcast(int i, Population& pop, std::vector<Population>& 
 	}
 
 	if (!found_kind) {
+		std::lock_guard<std::mutex> guard(lock);
 		populations.push_back(Population(pop[i]));
 		pop.remove_organism(i);
 	}

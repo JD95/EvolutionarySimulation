@@ -5,6 +5,7 @@
 #include <string>
 #include <functional>
 #include <time.h>
+#include <thread>
 
 #include "Genome.h"
 #include "Search.h"
@@ -141,16 +142,7 @@ void test_run_generation() {
 	system("pause");
 }
 
-int main()
-{
-	//while (true) {
-	//	test_natural_resource();
-	//	test_hunting();
-	//	test_diversity();
-	//	test_run_generation();
-	//	system("cls");
-	//}
-
+void simulation() {
 	World world({
 		NaturalResource(5),
 		NaturalResource(2),
@@ -183,6 +175,35 @@ int main()
 	std::cout << "Diversity: " << world.total_diversity() << "\n";
 
 	system("pause");
+}
+
+void increment_range(std::vector<int>::iterator start, std::vector<int>::iterator end) {
+	std::transform(start, end, start, [](int elem) { return elem + 1; });
+}
+
+int main()
+{
+	while (true) {
+		//test_natural_resource();
+		//test_hunting();
+		//test_diversity();
+		//test_run_generation();
+		simulation();
+		system("cls");
+	}
+	//std::vector<int> range{
+	//	0,1,2,3,4,5,6,7,8,9
+	//};
+
+	//std::thread first(increment_range, range.begin(), range.begin() + 4);
+	//std::thread second(increment_range, range.begin() + 5, range.end());
+
+	//first.join();
+	//second.join();
+
+	//for (auto& i : range) std::cout << i << "\n";
+
+	//system("pause");
 
 	return 0;
 }

@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <thread>
+#include <mutex>
 
 #include "Population.h"
 #include "NaturalResource.h"
@@ -13,10 +15,11 @@ namespace Environment {
 	{
 		std::vector<NaturalResource> resources;
 		std::vector<Population> populations;
+		std::mutex populations_mutex;
 		static constexpr float POPULATION_IMPORTANCE = 0.12f;
+		
 
 	public:
-
 		World(std::vector<NaturalResource> rs);
 		~World();
 
@@ -43,11 +46,16 @@ namespace Environment {
 			}
 		}
 
+		int num_organisms() {
+			return std::accumulate(populations.begin(), populations.end(), 0,
+				[](int total, Population& p) { return total + p.size(); });
+		}
+
 	};
 
-	void make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies);
+	void make_babies(Population& pop, std::vector<Population>& populations, std::vector<DNA::Organism>& babies, std::mutex& lock);
 
-	void make_outcast(int i, Population& pop, std::vector<Population>& populations);
+	void make_outcast(int i, Population& pop, std::vector<Population>& populations, std::mutex& lock);
 
 }
 

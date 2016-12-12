@@ -47,7 +47,7 @@ int DNA::num_offspring(const Organism& org) {
 	std::vector<Attribute> strategies;
 
 	std::copy_if(mom_phenotype.begin(), mom_phenotype.end(), std::back_inserter(strategies),
-		[](Attribute feat) { return feat.type == AttributeType::ReproductiveStrat; });
+		[](const Attribute& feat) { return feat.type == AttributeType::ReproductiveStrat; });
 
 	if (strategies.size() == 0) return 1;
 
@@ -56,7 +56,7 @@ int DNA::num_offspring(const Organism& org) {
 	switch ((*strat).subtype) {
 	case ReproductiveStrat::Single: return 1;
 	case ReproductiveStrat::Few: return 3;
-	case ReproductiveStrat::Many: return 10;
+	case ReproductiveStrat::Many: return 5;
 	default: return 1;
 	}
 }

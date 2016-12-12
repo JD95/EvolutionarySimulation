@@ -72,7 +72,7 @@ namespace DNA {
 			std::vector<Attribute> traits;
 
 			std::copy_if(phenotype.begin(), phenotype.end(), std::back_inserter(traits),
-				[&t](Attribute a) { return a.type == t; });
+				[&t](const Attribute& a) { return a.type == t; });
 			return traits;
 		}
 
@@ -87,6 +87,8 @@ namespace DNA {
 
 		bool is_dead() { return dead; }
 		void kill() { dead = true; }
+
+		int get_starve_counter() { return starve_counter; }
 	};
 
 	void mate(const Organism& mom, const Organism& dad, int pop_index, std::vector<Organism>& babies);

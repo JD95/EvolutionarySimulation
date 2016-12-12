@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 #include <algorithm>
 
 #include "Organism.h"
@@ -72,7 +73,7 @@ namespace Environment {
 	class Population
 	{
 		std::string name;
-		std::vector<DNA::Organism> organisms;
+		std::deque<DNA::Organism> organisms;
 		bool extinct;
 		int population_age;
 
@@ -96,8 +97,8 @@ namespace Environment {
 
 		friend std::ostream& operator<< (std::ostream& out, Population& population) {
 			out << "Population - " << population.name << " " << population.size() << ":\n";
-			/*for (auto& o : population.organisms)
-				out << "\t" << o << "\n";*/
+			for (auto& o : population.organisms)
+				out << "\t" << o << "\n";
 			return out;
 		}
 
@@ -127,7 +128,9 @@ namespace Environment {
 		void add_organism(DNA::Organism o) { organisms.push_back(o); }
 		void remove_organism(int i) { 
 			if (organisms.size() == 0) return;
-			organisms.erase(organisms.begin() + i); 
+			//std::swap(organisms[i], *(organisms.end() - 1));
+			//organisms.erase(organisms.end() - 1);
+			organisms.erase(organisms.begin() + i);
 		}
 		void add_babies(std::vector<DNA::Organism> babies) { 
 			std::copy(babies.begin(), babies.end(), std::back_inserter(organisms));
