@@ -96,8 +96,8 @@ namespace Environment {
 
 		friend std::ostream& operator<< (std::ostream& out, Population& population) {
 			out << "Population - " << population.name << " " << population.size() << ":\n";
-			/*for (auto& o : population.organisms)
-				out << "\t" << o << "\n";*/
+			for (auto& o : population.organisms)
+				out << "\t" << o << "\n";
 			return out;
 		}
 

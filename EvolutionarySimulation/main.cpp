@@ -5,6 +5,8 @@
 #include <string>
 #include <functional>
 #include <time.h>
+#include <iostream>
+#include <fstream>
 
 #include "Genome.h"
 #include "Search.h"
@@ -142,47 +144,76 @@ void test_run_generation() {
 }
 
 int main()
-{
-	//while (true) {
-	//	test_natural_resource();
-	//	test_hunting();
-	//	test_diversity();
-	//	test_run_generation();
-	//	system("cls");
-	//}
+{	
+	int RUNS = 8;
+	std::ofstream myfile;
+	myfile.open("information.txt", std::fstream::app | std::fstream::out);
+	std::string temp = "";
 
-	World world({
-		NaturalResource(5),
-		NaturalResource(2),
-		NaturalResource(2),
-		NaturalResource(3),
-		NaturalResource(1)
-	});
+	float diversity = 0;
+	int MAX = 20;
 
-	world.add_population(Population(generate_initial_genome(), 34, 3));
-	world.add_population(Population(generate_initial_genome(), 15, 3));
-	world.add_population(Population(generate_initial_genome(), 20, 3));
+	std::cout << "Amount of simulation loops to run (Enter an integer please)?\n";
+	std::cin >> MAX;
 
-	std::cout << "Beginning simulation!\n";
-	world.print_populations();
-	std::cout << "Diversity: " << world.total_diversity() << "\n";
+	for (int running = 0; running < MAX; running++)
+	{
+		//while (true) {
+		//	test_natural_resource();
+		//	test_hunting();
+		//	test_diversity();
+		//	test_run_generation();
+		//	system("cls");
+		//}
 
-	for (int i = 0; i < 10; i++) {
-		world.run_generation();
+		
+
+		World world({
+			NaturalResource(5),
+			NaturalResource(2),
+			NaturalResource(2),
+			NaturalResource(3),
+			NaturalResource(1)
+		});
+
+		world.add_population(Population(generate_initial_genome(), 34, 3));
+		world.add_population(Population(generate_initial_genome(), 15, 3));
+		world.add_population(Population(generate_initial_genome(), 20, 3));
+
+		std::cout << "Beginning simulation "+ std::to_string(running) + "!\n";
+		//world.print_populations();
+		diversity = world.total_diversity();
+		std::cout << "Diversity initially: " << diversity << "\n";
+
+		temp = std::to_string(diversity) + ", ";
+
+		for (int i = 0; i < RUNS; i++) {
+			world.run_generation();
+		}
+
+		diversity = world.total_diversity(); 
+		std::cout << "Diversity before disaster: " << diversity << "\n";
+
+		temp += std::to_string(diversity) + ", ";
+		std::cout << "Disaster!\n";
+		world.disaster();
+
+		diversity = world.total_diversity();
+		std::cout << "Diversity after disaster: " << diversity << "\n";
+		temp += std::to_string(diversity) + ", ";
+
+		for (int i = 0; i < RUNS + 1; i++) {
+			world.run_generation();
+		}
+
+		std::cout << "Simulation Complete!\n";
+		diversity = world.total_diversity();
+		std::cout << "Diversity at end of sim: " << diversity << "\n";
+		temp += std::to_string(diversity) + "\n";
+
+		myfile << temp;
+
 	}
-
-	std::cout << "Disaster!\n";
-	world.disaster();
-	std::cout << "Diversity: " << world.total_diversity() << "\n";
-
-	for (int i = 0; i < 10; i++) {
-		world.run_generation();
-	}
-
-	std::cout << "Simulation Complete!\n";
-	std::cout << "Diversity: " << world.total_diversity() << "\n";
-
-	system("pause");
 
 	return 0;
 }
